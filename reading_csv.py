@@ -21,6 +21,7 @@ def write_to_file(dataTuple_to_write, filepath):
         for each in dataTuple_to_write:
             csv_writer.writerows([each])
 
+
 data = read_data_from_file("test.csv")
 
 write_to_file(data, "clean_file.csv")
