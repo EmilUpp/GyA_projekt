@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.functional as F
 import torch.optim as optim
 
+import os.path as path
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -33,12 +35,14 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
 if __name__ == "__main__":
     pathName = "testNet.pth"
 
-    #get saved net
-    net = torch.load(pathName)
+    #create a new net
+    net = Net()
 
-    #if no net is saved, create a new net
-    if net.storage().size() == 0:
-        net = Net()
+    #if there is a saved net
+    if path.isfile(pathName):
+        #get saved net
+        net.load_state_dict(torch.load(pathName))
+        net.eval()
 
     #define loss function and optimizer
     criterion = nn.MSELoss()
