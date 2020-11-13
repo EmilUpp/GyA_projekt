@@ -1,5 +1,8 @@
+"""A collections of useful decorators"""
+
 from functools import wraps
 from time import time
+
 
 def timing(f):
     """A decorator for timing function calls"""

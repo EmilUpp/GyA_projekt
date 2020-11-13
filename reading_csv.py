@@ -1,3 +1,5 @@
+""" A File for reading csv files"""
+
 import csv
 from Decorators import timing
 
@@ -87,6 +89,8 @@ def non_zero_gap_size(data, current_index, length):
 
 @timing
 def read_data_from_file(filepath, data_row):
+    """Reads specified datarow from file"""
+
     with open(filepath, "r") as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter=",")
 
@@ -104,6 +108,8 @@ def read_data_from_file(filepath, data_row):
 
 
 def write_to_file(data_tuple_to_write, filepath):
+    """Writes a tuple to a specified file"""
+
     with open(filepath, "w+", newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=",")
         csv_writer.writerow(['recordedAt', 'heartRate'])
