@@ -1,4 +1,5 @@
 import csv
+from Decorators import timing
 
 
 def calculate_time_in_bed(data):
@@ -83,31 +84,31 @@ def non_zero_gap_size(data, current_index, length):
 
     return gap_size
 
-def read_data_from_file(filepath, dataRow):
+
+@timing
+def read_data_from_file(filepath, data_row):
     with open(filepath, "r") as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter=",")
 
         clean_list = list()
 
-        row_count = 0
         for row in csv_reader:
-            heart_rate = row[dataRow]
+            heart_rate = row[data_row]
 
             if int(heart_rate) < 30:
                 heart_rate = "0"
 
-            clean_list.append([row_count, heart_rate])
-            row_count += 1
+            clean_list.append([row["recordedAt"], heart_rate])
 
     return clean_list
 
 
-def write_to_file(dataTuple_to_write, filepath):
+def write_to_file(data_tuple_to_write, filepath):
     with open(filepath, "w+", newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=",")
-        csv_writer.writerow(['index', 'heartRate'])
+        csv_writer.writerow(['recordedAt', 'heartRate'])
 
-        for each in dataTuple_to_write:
+        for each in data_tuple_to_write:
             csv_writer.writerows([each])
 
 
@@ -115,8 +116,3 @@ if __name__ == "__main__":
     data = read_data_from_file("test.csv", "heartRate")
 
     write_to_file(data, "clean_file.csv")
-
-    sleep_length = calculate_time_in_bed(data)
-
-    print("The subject slept " + str(sleep_length) + " datapoints")
-    print("Approx: " + str(round((sleep_length * 5.08) / 3600, 2)) + " timmar")
