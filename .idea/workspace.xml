@@ -20,12 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7d986fb-0f20-47cb-a303-8f667885b930" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/combined_data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NightExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/NightExtractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vår sömn - Abbes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Vår sömn - Abbes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reading_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/reading_csv.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +49,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.NightExtractor">
@@ -158,29 +154,33 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="430" y="219" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1605280824440">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="430" y="219" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1605280824440" />
     <state x="462" y="119" key="FileChooserDialogImpl" timestamp="1604929081638">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1604929081638" />
-    <state width="1308" height="203" key="GridCell.Tab.0.bottom" timestamp="1605275968528">
+    <state width="1308" height="2" key="GridCell.Tab.0.bottom" timestamp="1605280825526">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="203" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1605275968528" />
+    <state width="1308" height="2" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1605280825526" />
     <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1308" height="203" key="GridCell.Tab.0.center" timestamp="1605275968528">
+    <state width="1308" height="2" key="GridCell.Tab.0.center" timestamp="1605280825524">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="203" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1605275968528" />
+    <state width="1308" height="2" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1605280825524" />
     <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1308" height="203" key="GridCell.Tab.0.left" timestamp="1605275968528">
+    <state width="1308" height="2" key="GridCell.Tab.0.left" timestamp="1605280825524">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="203" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1605275968528" />
+    <state width="1308" height="2" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1605280825524" />
     <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1308" height="203" key="GridCell.Tab.0.right" timestamp="1605275968528">
+    <state width="1308" height="2" key="GridCell.Tab.0.right" timestamp="1605280825525">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="203" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1605275968528" />
+    <state width="1308" height="2" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1605280825525" />
     <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
     <state width="1308" height="70" key="GridCell.Tab.1.bottom" timestamp="1605273476714">
       <screen x="0" y="0" width="1366" height="728" />
@@ -198,10 +198,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1308" height="70" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1605273476714" />
-    <state x="184" y="9" key="SettingsEditor" timestamp="1604928892427">
+    <state x="184" y="9" key="SettingsEditor" timestamp="1605512032626">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1604928892427" />
+    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1605512032626" />
     <state width="673" height="344" key="XDebugger.FullValuePopup" timestamp="1605268494260">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
