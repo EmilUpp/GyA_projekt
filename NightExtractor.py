@@ -5,7 +5,6 @@ A file for extracting and separating different nights data from one large csv fi
 import csv
 import datetime
 from reading_csv import read_data_from_file
-from Decorators import timing
 
 
 def format_date_time(date_string, time_string):
@@ -91,6 +90,7 @@ def read_excel_file(excel_file_path):
 def separate_nights(excel_data, sleep_data, debug_mode=False):
     """
     Seperates nights according to inout data from excel sheet
+    
     :param excel_data: csv file
     :param sleep_data: list of pulses, (recordedAt, pulse)
     :param debug_mode: prints error messages
@@ -169,6 +169,7 @@ def align_data(separated_data):
 if __name__ == "__main__":
     # Manual data with bedtime and wakeup
     excel_data = read_excel_file("Vår sömn - Abbes.csv")
+
 
     # Sensor data
     sleep_data = read_data_from_file("CompleteDataSet.csv", "heartRate")
