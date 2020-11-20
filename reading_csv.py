@@ -26,7 +26,7 @@ def calculate_time_in_bed(data):
             continue
 
         # Otherwise
-        elif (heartRate != "0" and non_zero_gap_size(data, index, 10) > 5):
+        elif heartRate != "0" and non_zero_gap_size(data, index, 10) > 5:
             # Set endpoint to current point
             current_hole_end = index
 

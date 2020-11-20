@@ -38,9 +38,11 @@ def convert_to_epoch(formatted_time):
 
 def read_excel_file(excel_file_path):
     """
-    Reads the data from an excel sheet for the parameters bedTime and WakeUpTime and converts them to epoch time
+    Reads the data from an excel sheet for the parameters bedTime and WakeUpTime
+    and converts them to epoch time
     :param excel_file_path: string, filepath to the file to read
-    :return: a tuple, format tuple(bedTime, wakeUpTime, sleepDuration) dates in epoch time (millisecond) and duration in milliseconds
+    :return: a tuple, format tuple(bedTime, wakeUpTime, sleepDuration)
+    dates in epoch time (millisecond) and duration in milliseconds
     """
 
     # Läs in nätterna från excel
@@ -118,11 +120,11 @@ def separate_nights(excel_data, sleep_data, debug_mode=False):
         recorded_at, pulse = int(recorded_at), int(pulse)
 
         # If passed current night wakeup
-        if (recorded_at > current_night_wakeup):
+        if recorded_at > current_night_wakeup:
 
             # Add night to list
             # Checks if there any data in the list, due to wintertime bug 25 october have 0 pulses
-            if (len(current_night_data) > 0):
+            if len(current_night_data) > 0:
                 separated_nights_data.append([excel_data[night_counter][2], current_night_data])
 
             # Reset
@@ -143,7 +145,7 @@ def separate_nights(excel_data, sleep_data, debug_mode=False):
                 break
 
         # If time is between bedtime and wakeup
-        if (recorded_at > current_night_bedtime and recorded_at < current_night_wakeup):
+        if current_night_bedtime < recorded_at < current_night_wakeup:
             current_night_data.append(pulse)
 
     return separated_nights_data
@@ -170,8 +172,10 @@ if __name__ == "__main__":
     # Manual data with bedtime and wakeup
     excel_data = read_excel_file("Vår sömn - Abbes.csv")
 
-
     # Sensor data
     sleep_data = read_data_from_file("CompleteDataSet.csv", "heartRate")
 
     separated_nights = separate_nights(excel_data, sleep_data)
+
+    for night in separated_nights:
+        print(night)
