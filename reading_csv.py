@@ -91,6 +91,9 @@ def non_zero_gap_size(data, current_index, length):
 def read_data_from_file(filepath, data_row):
     """Reads specified datarow from file"""
 
+    # All values below are set to zero
+    min_value_threshold = 30
+
     with open(filepath, "r") as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter=",")
 
@@ -99,7 +102,7 @@ def read_data_from_file(filepath, data_row):
         for row in csv_reader:
             heart_rate = row[data_row]
 
-            if int(heart_rate) < 30:
+            if int(heart_rate) < min_value_threshold:
                 heart_rate = "0"
 
             clean_list.append([row["recordedAt"], heart_rate])

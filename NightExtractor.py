@@ -5,6 +5,7 @@ A file for extracting and separating different nights data from one large csv fi
 import csv
 import datetime
 from reading_csv import read_data_from_file
+import DataCleanup
 
 
 def format_date_time(date_string, time_string):
@@ -40,6 +41,7 @@ def read_excel_file(excel_file_path):
     """
     Reads the data from an excel sheet for the parameters bedTime and WakeUpTime
     and converts them to epoch time
+
     :param excel_file_path: string, filepath to the file to read
     :return: a tuple, format tuple(bedTime, wakeUpTime, sleepDuration)
     dates in epoch time (millisecond) and duration in milliseconds
@@ -92,12 +94,15 @@ def read_excel_file(excel_file_path):
 def separate_nights(excel_data, sleep_data, debug_mode=False):
     """
     Seperates nights according to inout data from excel sheet
+
+    Calculates all nights in one go an therefore chains them
+    together make sure the excel data is correct or you might end up with other errors
     
     :param excel_data: csv file
     :param sleep_data: list of pulses, (recordedAt, pulse)
     :param debug_mode: prints error messages
-    :return: a list containing tuples of all nights with pulses and sleep duration
-            ((pulse_data1, sleep_duration1),(pulse_data2, sleep_duration2)
+    :return: a list containing tuples of all nights with (recordedAt, pulse) and sleep duration
+            [(sleep_duration1, [pulse_data1]),(sleep_duration2, [pulse_data2])]
     """
     separated_nights_data = []
 
@@ -146,7 +151,7 @@ def separate_nights(excel_data, sleep_data, debug_mode=False):
 
         # If time is between bedtime and wakeup
         if current_night_bedtime < recorded_at < current_night_wakeup:
-            current_night_data.append(pulse)
+            current_night_data.append((recorded_at, pulse))
 
     return separated_nights_data
 
@@ -177,5 +182,23 @@ if __name__ == "__main__":
 
     separated_nights = separate_nights(excel_data, sleep_data)
 
-    for night in separated_nights:
-        print(night)
+    meaned_data = DataCleanup.calculate_rolling_mean(separated_nights[1][1], 20000)
+    print(meaned_data)
+
+    print("Raw length: " + str(len(separated_nights[1][1])))
+    print("Mean length:" + str(len(meaned_data)))
+
+    print(round([x[1] for x in separated_nights[1][1]].count(0) / len(separated_nights[1][1]) * 100, 2))
+    print(round(meaned_data.count(0) / len(meaned_data) * 100, 2))
+
+    """
+    for sleep_duration, pulse_data in separated_nights:
+        print("Sleep duration:   " + str(round(sleep_duration / (3600 * 1000), 2)) + " hours")
+        for recorded_at, pulse in pulse_data:
+            print(str(recorded_at) + " " + str(pulse), end=" ")
+            #pass
+
+        print("Datapoints:       " + str(len(pulse_data)) + " points")
+        print("Average interval: " + str(round(sleep_duration / len(pulse_data) / 1000, 2)) + " seconds")
+        print()
+    """
