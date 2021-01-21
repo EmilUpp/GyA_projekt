@@ -183,13 +183,15 @@ if __name__ == "__main__":
     separated_nights = separate_nights(excel_data, sleep_data)
 
     meaned_data = DataCleanup.calculate_rolling_mean(separated_nights[1][1], 20000)
-    print(meaned_data)
+    print("mean:" + str(meaned_data))
 
     print("Raw length: " + str(len(separated_nights[1][1])))
     print("Mean length:" + str(len(meaned_data)))
 
     print(round([x[1] for x in separated_nights[1][1]].count(0) / len(separated_nights[1][1]) * 100, 2))
     print(round(meaned_data.count(0) / len(meaned_data) * 100, 2))
+
+    DataCleanup.compare_accuracy(separated_nights[3][1], [20000, 60000])
 
     """
     for sleep_duration, pulse_data in separated_nights:

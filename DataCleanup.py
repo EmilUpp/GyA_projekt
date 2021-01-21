@@ -48,8 +48,15 @@ def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     if data_chunk[-1][1] != 0:
         percentage_of_chunk = ((start_time + time_interval) - last_point[0]) / time_interval
         mean_value += data_chunk[-1][1] * percentage_of_chunk
+
+        if mean_value < 0:
+            print(round(mean_value), round(percentage_of_chunk))
+            print(data_chunk)
+            print(start_time + time_interval, last_point[0])
+            print()
+
     else:
-        # If the first on beyond the interval is zero the last non zero is extended
+        # If the first one beyond the interval is zero the last non zero is extended
         percentage_of_chunk = ((start_time + time_interval) - last_point[0]) / time_interval
         try:
             mean_value += last_point[1] * percentage_of_chunk
@@ -67,6 +74,8 @@ def calculate_mean(data_chunk, start_time, time_interval, debug=False):
 
     return mean_value
 
+# TODO fix potential problem with succesive empty chunks being counted as one empty chunk
+# TODO sometimes negative mean values? like dafuq
 
 # Calculate rolling mean
 def calculate_rolling_mean(pulse_data, time_interval, debug=False):
@@ -92,26 +101,77 @@ def calculate_rolling_mean(pulse_data, time_interval, debug=False):
 
     # loop every datapoint
     for index, (recorded_at, pulse) in enumerate(pulse_data):
-        # add point to current chunk
-        current_chunk.append((recorded_at, pulse))
 
         # if point is after interval end time
         if recorded_at > end_time:
-            # calculate_mean()
+            if (divmod(recorded_at-end_time, time_interval)[0] > 0 and debug):
+                print(divmod(recorded_at-end_time, time_interval)[0])
+                print((recorded_at-pulse_data[0][0])/1000)
+                print(len(current_chunk))
+                print()
+
+            # calculate
             mean_value = calculate_mean(current_chunk, start_time, time_interval, debug)
 
             # add mean to list
             calculated_mean_list.append(mean_value)
 
             # reset values
-            # The last one is after the ending and is therefore the first one in the next chunk
-            current_chunk = []
+            # Since the last is after end it's added to the next one
+            current_chunk = [(recorded_at, pulse)]
             start_time = end_time
             end_time = start_time + time_interval
+        else:
+            # Point is between start and end and is added
+            current_chunk.append((recorded_at, pulse))
 
     return calculated_mean_list
+
+
+def compare_accuracy(raw_data_set, different_intervals):
+    """
+    Calculates the rolling mean values for diffenr intervals and saves all in an csv for excel visulazations
+
+    :param raw_data_set: (sleep_duration1, [(recorded_at1, pulse1), (recorded_at2, pulse2)]), One nights complete data
+    :param different_intervals: List[int], A list of time intervals in milliseconds
+    :return: None
+    """
+
+    # Calculate all accuracies and add to list
+    multiple_level_data = list()
+    multiple_level_data.append((1, raw_data_set))
+
+    for interval in different_intervals:
+        multiple_level_data.append((interval, calculate_rolling_mean(raw_data_set, interval)))
+
+    # Open file
+    with open("accuracy_comparison.csv", "w+") as file_handler:
+        # Write first line
+        file_handler.write(",".join(str(x[0]/1000) + " sec" + "," for x in multiple_level_data) + "\n")
+
+        # Enumerate indexes in raw
+        for index in range(len(raw_data_set)):
+            file_handler.write(str((multiple_level_data[0][1][index][0] - multiple_level_data[0][1][0][0])/1000)
+                               + "," + str(multiple_level_data[0][1][index][1]))
+
+            # Try and write corresponding index from other interval
+            for interval, data in multiple_level_data[1:]:
+                try:
+                    file_handler.write("," + str(index * int(interval)/1000) + "," + str(data[index]))
+                except IndexError:
+                    file_handler.write(",#SAKNAS,#SAKNAS")
+                    pass
+
+            file_handler.write("\n")
+
+            # Try each and write to file
+
+
 
 
 # Add trailing zero to specified length
 def add_trailing_zeros(un_trailed_data, target_length):
     pass
+
+if __name__ == "__main__":
+    compare_accuracy([(0, 10), (1, 10), (2, 7)], [20, 60])
