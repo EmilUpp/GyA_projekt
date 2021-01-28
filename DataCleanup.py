@@ -2,6 +2,7 @@
 Functions for cleaning up and simplifying the data for processing
 """
 
+from Decorators import timing
 
 def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     """
@@ -75,7 +76,6 @@ def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     return mean_value
 
 # TODO fix potential problem with succesive empty chunks being counted as one empty chunk
-# TODO sometimes negative mean values? like dafuq
 
 # Calculate rolling mean
 def calculate_rolling_mean(pulse_data, time_interval, debug=False):
@@ -167,11 +167,38 @@ def compare_accuracy(raw_data_set, different_intervals):
             # Try each and write to file
 
 
-
-
 # Add trailing zero to specified length
 def add_trailing_zeros(un_trailed_data, target_length):
-    pass
+    """Adds trailing zeroes to make the list the target length"""
+
+    # Cut the list of it's longer then target length
+    if len(un_trailed_data) > target_length:
+        return un_trailed_data[:target_length]
+
+    un_trailed_data.extend(["0" for x in range(target_length - len(un_trailed_data))])
+    return un_trailed_data
+
+
+@timing
+def full_data_formatting(one_night_data_set, time_interval, target_length):
+    """
+    Formats the data by reducing the number of points by calculating the
+    rolling average of the time interval specified. If the data is shorter
+    then specified length trailing zeros are added
+
+    :param one_night_data_set: [sleep_duration, [pulse_data]], dataset for one night
+    :param time_interval: int, time interval to calculate rolling mean
+    :param target_length: int, length of array of data points
+    :return: [sleep_duration, int[pulse_data]]
+    """
+    sleep_length, pulse_data = one_night_data_set
+
+    mean_data = calculate_rolling_mean(pulse_data, time_interval)
+
+    mean_trailed_data = add_trailing_zeros(mean_data, target_length)
+
+    return [sleep_length, mean_trailed_data]
+
 
 if __name__ == "__main__":
     compare_accuracy([(0, 10), (1, 10), (2, 7)], [20, 60])
