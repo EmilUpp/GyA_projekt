@@ -4,6 +4,7 @@ Functions for cleaning up and simplifying the data for processing
 
 from Decorators import timing
 
+
 def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     """
     Calculates the mean of a certain interval of datapoints
@@ -29,7 +30,7 @@ def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     # loop through points except last one
     for recorded_at, pulse in data_chunk[:-1]:
         if zero_counter > len(data_chunk) / 1.5:
-           return 0
+            return 0
 
         # hmmmm might want to change this later
         if pulse == 0:
@@ -70,10 +71,11 @@ def calculate_mean(data_chunk, start_time, time_interval, debug=False):
         print()
         print("mean: " + str(mean_value), end="\n")
         for recorded_at, pulse in data_chunk:
-            print(round((recorded_at-start_time)/1000, 1), pulse, end=", ")
+            print(round((recorded_at - start_time) / 1000, 1), pulse, end=", ")
         print()
 
     return mean_value
+
 
 # TODO fix potential problem with succesive empty chunks being counted as one empty chunk
 
@@ -86,6 +88,7 @@ def calculate_rolling_mean(pulse_data, time_interval, debug=False):
 
     :param pulse_data: list of pulses, (recordedAt, pulse)
     :param time_interval: int, interval of each chunk, milliseconds
+    :param debug: bool, prints all values
     :return: a list of of pulse values uniformly spaced over time
     """
 
@@ -104,9 +107,9 @@ def calculate_rolling_mean(pulse_data, time_interval, debug=False):
 
         # if point is after interval end time
         if recorded_at > end_time:
-            if (divmod(recorded_at-end_time, time_interval)[0] > 0 and debug):
-                print(divmod(recorded_at-end_time, time_interval)[0])
-                print((recorded_at-pulse_data[0][0])/1000)
+            if divmod(recorded_at - end_time, time_interval)[0] > 0 and debug:
+                print(divmod(recorded_at - end_time, time_interval)[0])
+                print((recorded_at - pulse_data[0][0]) / 1000)
                 print(len(current_chunk))
                 print()
 
@@ -147,17 +150,17 @@ def compare_accuracy(raw_data_set, different_intervals):
     # Open file
     with open("accuracy_comparison.csv", "w+") as file_handler:
         # Write first line
-        file_handler.write(",".join(str(x[0]/1000) + " sec" + "," for x in multiple_level_data) + "\n")
+        file_handler.write(",".join(str(x[0] / 1000) + " sec" + "," for x in multiple_level_data) + "\n")
 
         # Enumerate indexes in raw
         for index in range(len(raw_data_set)):
-            file_handler.write(str((multiple_level_data[0][1][index][0] - multiple_level_data[0][1][0][0])/1000)
+            file_handler.write(str((multiple_level_data[0][1][index][0] - multiple_level_data[0][1][0][0]) / 1000)
                                + "," + str(multiple_level_data[0][1][index][1]))
 
             # Try and write corresponding index from other interval
             for interval, data in multiple_level_data[1:]:
                 try:
-                    file_handler.write("," + str(index * int(interval)/1000) + "," + str(data[index]))
+                    file_handler.write("," + str(index * int(interval) / 1000) + "," + str(data[index]))
                 except IndexError:
                     file_handler.write(",#SAKNAS,#SAKNAS")
                     pass
@@ -175,7 +178,7 @@ def add_trailing_zeros(un_trailed_data, target_length):
     if len(un_trailed_data) > target_length:
         return un_trailed_data[:target_length]
 
-    un_trailed_data.extend(["0" for x in range(target_length - len(un_trailed_data))])
+    un_trailed_data.extend(["0" for _ in range(target_length - len(un_trailed_data))])
     return un_trailed_data
 
 

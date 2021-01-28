@@ -6,7 +6,6 @@ import csv
 import datetime
 from reading_csv import read_data_from_file
 import DataCleanup
-from Decorators import timing
 
 
 def format_date_time(date_string, time_string):
