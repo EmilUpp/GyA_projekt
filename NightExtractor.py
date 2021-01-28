@@ -5,6 +5,7 @@ A file for extracting and separating different nights data from one large csv fi
 import csv
 import datetime
 from reading_csv import read_data_from_file
+import DataCleanup
 from Decorators import timing
 
 
@@ -39,9 +40,12 @@ def convert_to_epoch(formatted_time):
 
 def read_excel_file(excel_file_path):
     """
-    Reads the data from an excel sheet for the parameters bedTime and WakeUpTime and converts them to epoch time
+    Reads the data from an excel sheet for the parameters bedTime and WakeUpTime
+    and converts them to epoch time
+
     :param excel_file_path: string, filepath to the file to read
-    :return: a tuple, format tuple(bedTime, wakeUpTime, sleepDuration) dates in epoch time (millisecond) and duration in milliseconds
+    :return: a tuple, format tuple(bedTime, wakeUpTime, sleepDuration)
+    dates in epoch time (millisecond) and duration in milliseconds
     """
 
     # Läs in nätterna från excel
@@ -91,11 +95,15 @@ def read_excel_file(excel_file_path):
 def separate_nights(excel_data, sleep_data, debug_mode=False):
     """
     Seperates nights according to inout data from excel sheet
+
+    Calculates all nights in one go an therefore chains them
+    together make sure the excel data is correct or you might end up with other errors
+    
     :param excel_data: csv file
     :param sleep_data: list of pulses, (recordedAt, pulse)
     :param debug_mode: prints error messages
-    :return: a list containing tuples of all nights with pulses and sleep duration
-            ((pulse_data1, sleep_duration1),(pulse_data2, sleep_duration2)
+    :return: a list containing tuples of all nights with (recordedAt, pulse) and sleep duration
+            [(sleep_duration1, [pulse_data1]),(sleep_duration2, [pulse_data2])]
     """
     separated_nights_data = []
 
@@ -118,11 +126,11 @@ def separate_nights(excel_data, sleep_data, debug_mode=False):
         recorded_at, pulse = int(recorded_at), int(pulse)
 
         # If passed current night wakeup
-        if (recorded_at > current_night_wakeup):
+        if recorded_at > current_night_wakeup:
 
             # Add night to list
             # Checks if there any data in the list, due to wintertime bug 25 october have 0 pulses
-            if (len(current_night_data) > 0):
+            if len(current_night_data) > 0:
                 separated_nights_data.append([excel_data[night_counter][2], current_night_data])
 
             # Reset
@@ -143,8 +151,8 @@ def separate_nights(excel_data, sleep_data, debug_mode=False):
                 break
 
         # If time is between bedtime and wakeup
-        if (recorded_at > current_night_bedtime and recorded_at < current_night_wakeup):
-            current_night_data.append(pulse)
+        if current_night_bedtime < recorded_at < current_night_wakeup:
+            current_night_data.append((recorded_at, pulse))
 
     return separated_nights_data
 
@@ -174,3 +182,32 @@ if __name__ == "__main__":
     sleep_data = read_data_from_file("CompleteDataSet.csv", "heartRate")
 
     separated_nights = separate_nights(excel_data, sleep_data)
+
+    print(DataCleanup.full_data_formatting(separated_nights[7], 20000, 2000))
+
+    """
+    meaned_data = DataCleanup.calculate_rolling_mean(separated_nights[1][1], 20000)
+    print("mean:" + str(meaned_data))
+
+    print("Raw length: " + str(len(separated_nights[1][1])))
+    print("Mean length:" + str(len(meaned_data)))
+
+    print(round([x[1] for x in separated_nights[1][1]].count(0) / len(separated_nights[1][1]) * 100, 2))
+    print(round(meaned_data.count(0) / len(meaned_data) * 100, 2))
+
+    DataCleanup.compare_accuracy(separated_nights[4][1], [20000, 60000])
+
+    print(DataCleanup.add_trailing_zeros(meaned_data, 4000))
+    """
+
+    """
+    for sleep_duration, pulse_data in separated_nights:
+        print("Sleep duration:   " + str(round(sleep_duration / (3600 * 1000), 2)) + " hours")
+        for recorded_at, pulse in pulse_data:
+            print(str(recorded_at) + " " + str(pulse), end=" ")
+            #pass
+
+        print("Datapoints:       " + str(len(pulse_data)) + " points")
+        print("Average interval: " + str(round(sleep_duration / len(pulse_data) / 1000, 2)) + " seconds")
+        print()
+    """
