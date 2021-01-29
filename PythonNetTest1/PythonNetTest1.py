@@ -105,7 +105,7 @@ def train_net(net, criterion, optimizer, allNightsTensor):
         while j <= totalNightLength:
             # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into allTrainingChunks
             allTrainingChunks.append(torch.tensor(
-                allNightsTensor[i][0], chunk(allNightsTensor[i][0], allnightsTensor[i][1], j)))
+                allNightsTensor[i][0], chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
             # Step to next chunking time, use iteration variable to keep track of this
             j += chunkDifference
         i += 1
@@ -150,6 +150,7 @@ if __name__ == "__main__":
         formatted_data_nights.append(DataCleanup.full_data_formatting(night, 20000, 4000))
 
     # train the net
+    train_net(net, criterion, optimizer, formatted_data_nights)
 
     # save the net
     torch.save(net.state_dict(), pathName)
