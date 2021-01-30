@@ -72,10 +72,13 @@ def chunk(wakeUpTime, nightData, chunkTime):
 
     # Set all values between chunkindex and the end to zero
     i = get_index_from_time(chunkTime, 20000)
+
+    # Marker?
     # chunkedData[i-1] = -1
     while i < len(chunkedData):
         chunkedData[i] = 0
         i += 1
+
     return chunkedData
 
 
@@ -107,7 +110,8 @@ def train_net(net, criterion, optimizer, allNightsTensor):
         # chunk until we are trying to chunk past the end
         j = chunkDifference
         while j <= totalNightLength:
-            # timeUntilWakeUp = min(allNightsTensor[i][0], j)
+            #timeUntilWakeUp = min(allNightsTensor[i][0], j)
+            #print(timeUntilWakeUp)
             # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into allTrainingChunks
             allTrainingChunks.append((
                 allNightsTensor[i][0], chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))

@@ -178,7 +178,7 @@ def add_trailing_zeros(un_trailed_data, target_length):
     if len(un_trailed_data) > target_length:
         return un_trailed_data[:target_length]
 
-    un_trailed_data.extend(["0" for _ in range(target_length - len(un_trailed_data))])
+    un_trailed_data.extend([0 for _ in range(target_length - len(un_trailed_data))])
     return un_trailed_data
 
 
