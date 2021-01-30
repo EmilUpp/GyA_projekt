@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import torch.functional as F
+import torch.nn.functional as F
 import torch.optim as optim
 
 import os.path as path
@@ -9,13 +9,14 @@ import random
 
 from NightExtractor import read_excel_file, separate_nights
 from reading_csv import read_data_from_file
+from Decorators import timing
 import DataCleanup
 
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(4000, 500)
+        self.fc1 = nn.Linear(2000, 500)
         self.fc2 = nn.Linear(500, 50)
         self.fc3 = nn.Linear(50, 25)
         self.fc4 = nn.Linear(25, 8)
@@ -35,12 +36,14 @@ class Net(nn.Module):
 # Also takes data points (tensor) and sleep duration in milliseconds(int) as two seperate parameters
 # Returns void but changes the net according to result from calculation and loss function
 def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
+
     optimizer.zero_grad()
 
     guess = net(oneNightTensor)
     loss = criterion(guess, wakeUpTime)
     loss.backward()
     optimizer.step()
+    print(round(abs(int(wakeUpTime - guess)), 4))
 
 
 # Converts time (ms) to index
@@ -49,8 +52,7 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
 # As every element in data tensor represents a interval of a constant amount of milliseconds,
 # the operation is (time / ms per element)
 # It is also floored as the index of a interval is equal to the lowest time in the interval / ms per element
-def get_index_from_time(time):
-    msPerElement = 20000
+def get_index_from_time(time, msPerElement):
     return math.floor(time / msPerElement)
 
 
@@ -62,15 +64,16 @@ def get_index_from_time(time):
 def chunk(wakeUpTime, nightData, chunkTime):
     # Copy tensor as to not change the original data
     # unsure if this is necessary, is there a way to make constants in python?
-    chunkedData = nightData
+    chunkedData = nightData.copy()
 
     # Make sure we never chunk after wakeup time as this would include obstructuary data
     if chunkTime > wakeUpTime:
         chunkTime = wakeUpTime
 
     # Set all values between chunkindex and the end to zero
-    i = get_index_from_time(chunkTime)
-    while i < chunkedData.size():
+    i = get_index_from_time(chunkTime, 20000)
+    # chunkedData[i-1] = -1
+    while i < len(chunkedData):
         chunkedData[i] = 0
         i += 1
     return chunkedData
@@ -89,6 +92,7 @@ def chunk(wakeUpTime, nightData, chunkTime):
 #
 # These will then be randomly run through the net and it will be changed according to
 # result and loss function.
+@timing
 def train_net(net, criterion, optimizer, allNightsTensor):
     # Temporary: declare how long the nights are and how long the chunks are
     chunkDifference = 3600000
@@ -99,12 +103,13 @@ def train_net(net, criterion, optimizer, allNightsTensor):
 
     # For every night
     i = 0
-    while i < allNightsTensor.size():
+    while i < len(allNightsTensor):
         # chunk until we are trying to chunk past the end
         j = chunkDifference
         while j <= totalNightLength:
+            # timeUntilWakeUp = min(allNightsTensor[i][0], j)
             # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into allTrainingChunks
-            allTrainingChunks.append(torch.tensor(
+            allTrainingChunks.append((
                 allNightsTensor[i][0], chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
             # Step to next chunking time, use iteration variable to keep track of this
             j += chunkDifference
@@ -115,7 +120,9 @@ def train_net(net, criterion, optimizer, allNightsTensor):
     # run them all through the net
     i = 0
     while i < len(allTrainingChunks):
-        train_net_one_night(net, criterion, optimizer, allTrainingChunks[i][1], allTrainingChunks[i][0])
+        train_net_one_night(net, criterion, optimizer,
+                            torch.Tensor(allTrainingChunks[i][1]),
+                            torch.Tensor([allTrainingChunks[i][0]]))
         i += 1
 
 
@@ -147,7 +154,7 @@ if __name__ == "__main__":
     # Format the data
     formatted_data_nights = list()
     for night in separated_nights:
-        formatted_data_nights.append(DataCleanup.full_data_formatting(night, 20000, 4000))
+        formatted_data_nights.append(DataCleanup.full_data_formatting(night, 20000, 2000))
 
     # train the net
     train_net(net, criterion, optimizer, formatted_data_nights)

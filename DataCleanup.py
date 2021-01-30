@@ -182,7 +182,6 @@ def add_trailing_zeros(un_trailed_data, target_length):
     return un_trailed_data
 
 
-@timing
 def full_data_formatting(one_night_data_set, time_interval, target_length):
     """
     Formats the data by reducing the number of points by calculating the
