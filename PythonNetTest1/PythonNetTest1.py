@@ -12,15 +12,18 @@ from reading_csv import read_data_from_file
 from Decorators import timing
 import DataCleanup
 
+# Saves the performance into groups depending on time left
+performanceComparison = dict()
+
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(2000, 500)
-        self.fc2 = nn.Linear(500, 50)
-        self.fc3 = nn.Linear(50, 25)
-        self.fc4 = nn.Linear(25, 8)
-        self.fc5 = nn.Linear(8, 1)
+        self.fc1 = nn.Linear(2000, 800)
+        self.fc2 = nn.Linear(800, 800)
+        self.fc3 = nn.Linear(800, 800)
+        self.fc4 = nn.Linear(800, 50)
+        self.fc5 = nn.Linear(50, 1)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
@@ -36,14 +39,14 @@ class Net(nn.Module):
 # Also takes data points (tensor) and sleep duration in milliseconds(int) as two seperate parameters
 # Returns void but changes the net according to result from calculation and loss function
 def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
-
     optimizer.zero_grad()
 
     guess = net(oneNightTensor)
     loss = criterion(guess, wakeUpTime)
     loss.backward()
     optimizer.step()
-    print(round(abs(int(wakeUpTime - guess)), 4))
+
+    group_performances(guess, wakeUpTime)
 
 
 # Converts time (ms) to index
@@ -54,6 +57,47 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
 # It is also floored as the index of a interval is equal to the lowest time in the interval / ms per element
 def get_index_from_time(time, msPerElement):
     return math.floor(time / msPerElement)
+
+
+def group_performances(guess, wakeUpTime):
+    """Groups performances after how long before wakeup time it was made"""
+
+    hour_in_ms = 3600000
+
+    # Performance counted in minutes
+    performance = round(abs(int(wakeUpTime - guess) / 1000 / 60), 4)
+
+    # Different time interval
+    if wakeUpTime < hour_in_ms:
+        performanceComparison.setdefault("<1h", [])
+        performanceComparison["<1h"].append(performance)
+    elif wakeUpTime < hour_in_ms * 3:
+        performanceComparison.setdefault("1-3h", [])
+        performanceComparison["1-3h"].append(performance)
+    elif wakeUpTime < hour_in_ms * 6:
+        performanceComparison.setdefault("3-6h", [])
+        performanceComparison["3-6h"].append(performance)
+    else:
+        performanceComparison.setdefault(">6h", [])
+        performanceComparison[">6h"].append(performance)
+
+
+def save_performance(performances):
+    """Saves the performances to a csv file"""
+    with open("performanceComparison.csv", "w+") as file_handler:
+        # Writes the columnnames
+        file_handler.write(",".join(performances.keys()) + "\n")
+
+        combined = dict()
+
+        # Combines all data by building a list of all items with index n and appending list to main list
+        for guesses in performances.values():
+            for index, each in enumerate(guesses):
+                combined.setdefault(str(index), [])
+                combined[str(index)].append(each)
+
+        for index, each in combined.items():
+            file_handler.write("".join(str(each)[1:-1]) + "\n")
 
 
 # Chunks a night
@@ -98,8 +142,9 @@ def chunk(wakeUpTime, nightData, chunkTime):
 @timing
 def train_net(net, criterion, optimizer, allNightsTensor):
     # Temporary: declare how long the nights are and how long the chunks are
-    chunkDifference = 3600000
-    totalNightLength = 12 * 3600000
+    chunkDifference = 1000 * 60 * 5
+    totalNightLength = 10 * 3600000
+    # totalNightLength = 2000 * 20000
 
     # Declare list for storing all chunked up nights
     allTrainingChunks = []
@@ -110,11 +155,11 @@ def train_net(net, criterion, optimizer, allNightsTensor):
         # chunk until we are trying to chunk past the end
         j = chunkDifference
         while j <= totalNightLength:
-            #timeUntilWakeUp = min(allNightsTensor[i][0], j)
-            #print(timeUntilWakeUp)
+            # Calculate time from end of chunk to wakeup
+            timeUntilWakeUp = max(allNightsTensor[i][0] - j, 0)
             # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into allTrainingChunks
             allTrainingChunks.append((
-                allNightsTensor[i][0], chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
+                timeUntilWakeUp, chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
             # Step to next chunking time, use iteration variable to keep track of this
             j += chunkDifference
         i += 1
@@ -165,3 +210,5 @@ if __name__ == "__main__":
 
     # save the net
     torch.save(net.state_dict(), pathName)
+
+    save_performance(performanceComparison)
