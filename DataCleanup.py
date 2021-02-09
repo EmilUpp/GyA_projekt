@@ -81,8 +81,7 @@ def calculate_mean(data_chunk, start_time, time_interval, debug=False):
 
 # Calculate rolling mean
 def calculate_rolling_mean(pulse_data, time_interval, debug=False):
-    """
-    Calculates the rolling mean of the input values and creates a new list with
+    """ Calculates the rolling mean of the input values and creates a new list with
     the mean values uniformly spaced over time, how much time is between the values
     is set by the time interval parameter
 
