@@ -33,7 +33,7 @@ class Net(nn.Module):
         x = self.fc5(x)
         return x
 
-
+      
 # Train the net with a tensor of data representing one chunked night
 # Takes the net, optimiser and criterion
 # Also takes data points (tensor) and sleep duration in milliseconds(int) as two seperate parameters
@@ -174,7 +174,7 @@ def train_net(net, criterion, optimizer, allNightsTensor):
                             torch.Tensor([allTrainingChunks[i][0]]))
         i += 1
 
-
+        
 if __name__ == "__main__":
     pathName = "testNet.pth"
 
