@@ -1,4 +1,6 @@
-""" A File for reading csv files"""
+"""
+A file for reading csv files
+"""
 
 import csv
 from Decorators import timing

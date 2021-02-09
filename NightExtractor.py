@@ -6,7 +6,6 @@ import csv
 import datetime
 from reading_csv import read_data_from_file
 import DataCleanup
-from Decorators import timing
 
 
 def format_date_time(date_string, time_string):
@@ -176,10 +175,10 @@ def align_data(separated_data):
 
 if __name__ == "__main__":
     # Manual data with bedtime and wakeup
-    excel_data = read_excel_file("Vår sömn - Abbes.csv")
+    excel_data = read_excel_file("PythonNetTest1/Vår sömn - Abbes.csv")
 
     # Sensor data
-    sleep_data = read_data_from_file("CompleteDataSet.csv", "heartRate")
+    sleep_data = read_data_from_file("PythonNetTest1/CompleteDataSet.csv", "heartRate")
 
     separated_nights = separate_nights(excel_data, sleep_data)
 
