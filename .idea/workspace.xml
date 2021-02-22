@@ -20,11 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7d986fb-0f20-47cb-a303-8f667885b930" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PythonNetTest1/PulseData11OctTo3Dec.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonNetTest1/Vår sömn - Abbes2.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/performance_test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NightExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/NightExtractor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/testNet.pth" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/testNet.pth" afterDir="false" />
@@ -67,7 +63,7 @@
       <recent name="C:\Users\emisit1\Documents\GitHub\GyA_projekt\PythonNetTest1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.NightExtractor">
+  <component name="RunManager" selected="Python.PythonNetTest1">
     <configuration name="DataCleanup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GyA_projekt" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -175,8 +171,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.NightExtractor" />
         <item itemvalue="Python.PythonNetTest1" />
+        <item itemvalue="Python.NightExtractor" />
         <item itemvalue="Python.DataCleanup" />
         <item itemvalue="Python.list_test" />
         <item itemvalue="Python.reading_csv" />
@@ -229,22 +225,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605520469970" />
-    <state width="1308" height="200" key="GridCell.Tab.0.bottom" timestamp="1614019218492">
+    <state width="1308" height="188" key="GridCell.Tab.0.bottom" timestamp="1614030491585">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="200" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
-    <state width="1308" height="200" key="GridCell.Tab.0.center" timestamp="1614019218492">
+    <state width="1308" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614030491585" />
+    <state width="1308" height="188" key="GridCell.Tab.0.center" timestamp="1614030491585">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="200" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
-    <state width="1308" height="200" key="GridCell.Tab.0.left" timestamp="1614019218492">
+    <state width="1308" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614030491585" />
+    <state width="1308" height="188" key="GridCell.Tab.0.left" timestamp="1614030491584">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="200" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
-    <state width="1308" height="200" key="GridCell.Tab.0.right" timestamp="1614019218492">
+    <state width="1308" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614030491584" />
+    <state width="1308" height="188" key="GridCell.Tab.0.right" timestamp="1614030491585">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="200" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
+    <state width="1308" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614030491585" />
     <state width="1308" height="172" key="GridCell.Tab.1.bottom" timestamp="1613661032440">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

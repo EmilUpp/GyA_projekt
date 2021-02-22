@@ -22,22 +22,22 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.fc1 = nn.Linear(2000, 800)
         self.fc2 = nn.Linear(800, 800)
-        self.fc3 = nn.Linear(800, 800)
-        self.fc4 = nn.Linear(800, 50)
-        self.fc5 = nn.Linear(50, 1)
+        self.fc3 = nn.Linear(800, 50)
+        # self.fc4 = nn.Linear(800, 50)
+        self.fc4 = nn.Linear(50, 1)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
-        x = F.relu(self.fc4(x))
-        x = self.fc5(x)
+        # x = F.relu(self.fc4(x))
+        x = self.fc4(x)
         return x
 
       
 # Train the net with a tensor of data representing one chunked night
 # Takes the net, optimiser and criterion
-# Also takes data points (tensor) and sleep duration in milliseconds(int) as two seperate parameters
+# Also takes data points (tensor) and sleep duration in milliseconds(int) as two separate parameters
 # Returns void but changes the net according to result from calculation and loss function
 def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
     optimizer.zero_grad()
@@ -47,7 +47,7 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
     loss.backward()
     optimizer.step()
 
-    # group_performances(guess, wakeUpTime)
+    group_performances(guess, wakeUpTime)
 
     # When only one for testing
     # performance = round(abs(int(wakeUpTime - guess) / 1000 / 60), 4)
@@ -70,7 +70,7 @@ def group_performances(guess, wakeUpTime):
     hour_in_ms = 3600000
 
     # Performance counted in minutes
-    performance = round(abs(int(wakeUpTime - guess) / 1000 / 60), 4)
+    performance = round(abs(int(wakeUpTime - guess) / 1000 / 60), 2)
 
     # Different time interval
     if wakeUpTime < hour_in_ms:
@@ -91,17 +91,34 @@ def save_performance(performances):
     """Saves the performances to a csv file"""
     with open("performanceComparison.csv", "w+") as file_handler:
         # Writes the columnnames
-        file_handler.write(",".join(performances.keys()) + "\n")
+        # file_handler.write(",".join(performances.keys()) + "\n")
 
-        combined = dict()
+        file_handler.write("<1h,1-3h,3-6h,>6h\n")
+
+        combined = list()
 
         # Combines all data by building a list of all items with index n and appending list to main list
-        for guesses in performances.values():
-            for index, each in enumerate(guesses):
-                combined.setdefault(str(index), [])
-                combined[str(index)].append(each)
+        for index, value in enumerate(performances["<1h"]):
+            combined.append([value])
 
-        for index, each in combined.items():
+            # Tries to add latter and but they are shorter
+            try:
+                combined[index].append(performances["1-3h"][index])
+            except IndexError:
+                pass
+
+            try:
+                combined[index].append(performances["3-6h"][index])
+            except IndexError:
+                pass
+
+            try:
+                combined[index].append(performances[">6h"][index])
+            except IndexError:
+                pass
+
+
+        for each in combined:
             file_handler.write("".join(str(each)[1:-1]) + "\n")
 
 
@@ -210,7 +227,6 @@ if __name__ == "__main__":
     formatted_data_nights = list()
     for night in separated_nights:
         formatted_data_nights.append(full_data_formatting(night, 20000, 2000))
-
 
     # train the net
     train_net(net, criterion, optimizer, formatted_data_nights)
