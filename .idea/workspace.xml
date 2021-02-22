@@ -20,10 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7d986fb-0f20-47cb-a303-8f667885b930" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PythonNetTest1/PulseData11OctTo3Dec.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PythonNetTest1/Vår sömn - Abbes2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/performance_test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataCleanup.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataCleanup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NightExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/NightExtractor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/testNet.pth" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/testNet.pth" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,16 +55,19 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PythonNetTest1" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\emisit1\Documents\GitHub\GyA_projekt\PythonNetTest1" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\emisit1\Documents\GitHub\GyA_projekt\PythonNetTest1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.PythonNetTest1">
+  <component name="RunManager" selected="Python.NightExtractor">
     <configuration name="DataCleanup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GyA_projekt" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -169,8 +175,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.PythonNetTest1" />
         <item itemvalue="Python.NightExtractor" />
+        <item itemvalue="Python.PythonNetTest1" />
         <item itemvalue="Python.DataCleanup" />
         <item itemvalue="Python.list_test" />
         <item itemvalue="Python.reading_csv" />
@@ -211,10 +217,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="449" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1611919603661" />
-    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1612777151974">
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613742281787">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1612777151974" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1613742281787" />
     <state x="430" y="219" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1605280824440">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -223,42 +229,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605520469970" />
-    <state width="1345" height="190" key="GridCell.Tab.0.bottom" timestamp="1612777928051">
+    <state width="1308" height="200" key="GridCell.Tab.0.bottom" timestamp="1614019218492">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="190" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1612777928051" />
-    <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1345" height="190" key="GridCell.Tab.0.center" timestamp="1612777928047">
+    <state width="1308" height="200" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
+    <state width="1308" height="200" key="GridCell.Tab.0.center" timestamp="1614019218492">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="190" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1612777928047" />
-    <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1345" height="190" key="GridCell.Tab.0.left" timestamp="1612777928046">
+    <state width="1308" height="200" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
+    <state width="1308" height="200" key="GridCell.Tab.0.left" timestamp="1614019218492">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="190" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1612777928046" />
-    <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1345" height="190" key="GridCell.Tab.0.right" timestamp="1612777928048">
+    <state width="1308" height="200" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
+    <state width="1308" height="200" key="GridCell.Tab.0.right" timestamp="1614019218492">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="190" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1612777928048" />
-    <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603372756273" />
-    <state width="1345" height="122" key="GridCell.Tab.1.bottom" timestamp="1612006345095">
+    <state width="1308" height="200" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614019218492" />
+    <state width="1308" height="172" key="GridCell.Tab.1.bottom" timestamp="1613661032440">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="122" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1612006345095" />
-    <state width="1345" height="122" key="GridCell.Tab.1.center" timestamp="1612006345095">
+    <state width="1308" height="172" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1613661032440" />
+    <state width="1308" height="172" key="GridCell.Tab.1.center" timestamp="1613661032439">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="122" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1612006345095" />
-    <state width="1345" height="122" key="GridCell.Tab.1.left" timestamp="1612006345095">
+    <state width="1308" height="172" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1613661032439" />
+    <state width="1308" height="172" key="GridCell.Tab.1.left" timestamp="1613661032439">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="122" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1612006345095" />
-    <state width="1345" height="122" key="GridCell.Tab.1.right" timestamp="1612006345095">
+    <state width="1308" height="172" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1613661032439" />
+    <state width="1308" height="172" key="GridCell.Tab.1.right" timestamp="1613661032440">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="122" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1612006345095" />
+    <state width="1308" height="172" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1613661032440" />
     <state x="184" y="9" key="SettingsEditor" timestamp="1605521820512">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

@@ -10,10 +10,11 @@ import random
 from NightExtractor import read_excel_file, separate_nights
 from reading_csv import read_data_from_file
 from Decorators import timing
-import DataCleanup
+from DataCleanup import full_data_formatting
 
 # Saves the performance into groups depending on time left
 performanceComparison = dict()
+one_night_performance = list()
 
 
 class Net(nn.Module):
@@ -46,7 +47,11 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
     loss.backward()
     optimizer.step()
 
-    group_performances(guess, wakeUpTime)
+    # group_performances(guess, wakeUpTime)
+
+    # When only one for testing
+    # performance = round(abs(int(wakeUpTime - guess) / 1000 / 60), 4)
+    # one_night_performance.append([performance, round(abs(int(wakeUpTime) / 1000 / 60), 4)])
 
 
 # Converts time (ms) to index
@@ -156,10 +161,10 @@ def train_net(net, criterion, optimizer, allNightsTensor):
         j = chunkDifference
         while j <= totalNightLength:
             # Calculate time from end of chunk to wakeup
-            timeUntilWakeUp = max(allNightsTensor[i][0] - j, 0)
+            timeUntilWakeUp = max(allNightsTensor[i][0] - j + chunkDifference, 0)
             # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into allTrainingChunks
-            allTrainingChunks.append((
-                timeUntilWakeUp, chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
+            allTrainingChunks.append((timeUntilWakeUp,
+                                      chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
             # Step to next chunking time, use iteration variable to keep track of this
             j += chunkDifference
         i += 1
@@ -177,12 +182,13 @@ def train_net(net, criterion, optimizer, allNightsTensor):
         
 if __name__ == "__main__":
     pathName = "testNet.pth"
+    use_loaded_net = False
 
     # create a new net
     net = Net()
 
     # if there is a saved net
-    if path.isfile(pathName):
+    if path.isfile(pathName) and use_loaded_net:
         # get saved net
         net.load_state_dict(torch.load(pathName))
         net.eval()
@@ -194,16 +200,17 @@ if __name__ == "__main__":
     # get data
 
     # Manual data with bedtime and wakeup
-    excel_data = read_excel_file("Vår sömn - Abbes.csv")
+    excel_data = read_excel_file("Vår sömn - Abbes2.csv")
 
     # Sensor data
-    sleep_data = read_data_from_file("CompleteDataSet.csv", "heartRate")
+    sleep_data = read_data_from_file("PulseData11OctTo3Dec.csv", "heartRate")
     separated_nights = separate_nights(excel_data, sleep_data)
 
     # Format the data
     formatted_data_nights = list()
     for night in separated_nights:
-        formatted_data_nights.append(DataCleanup.full_data_formatting(night, 20000, 2000))
+        formatted_data_nights.append(full_data_formatting(night, 20000, 2000))
+
 
     # train the net
     train_net(net, criterion, optimizer, formatted_data_nights)
@@ -212,3 +219,7 @@ if __name__ == "__main__":
     torch.save(net.state_dict(), pathName)
 
     save_performance(performanceComparison)
+
+    #
+    #for performance, guess in one_night_performance:
+    #    print(str(performance) + "," + str(int(guess)))
