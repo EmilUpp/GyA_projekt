@@ -15,6 +15,7 @@ from DataCleanup import full_data_formatting
 # Saves the performance into groups depending on time left
 performanceComparison = dict()
 one_night_performance = list()
+loss_list = []
 
 
 class Net(nn.Module):
@@ -47,6 +48,13 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
     loss.backward()
     optimizer.step()
 
+    # if wakeUpTime < 3600000:
+    #     loss_ = loss.item() / batch_size
+    #     # loss_printable = "{:.2e}".format(loss.item()).split("+")[1]
+    #     loss_list.append(int(loss_))
+    #     if (len(loss_list) % 10 == 0):
+    #         print(str(sum(loss_list[-10:-1])/len(loss_list[-10:-1])))
+
     group_performances(guess, wakeUpTime)
 
     # When only one for testing
@@ -63,7 +71,7 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
 def get_index_from_time(time, msPerElement):
     return math.floor(time / msPerElement)
 
-
+#TODO might be a bug, there a sharp drop in performance when other interval level ends
 def group_performances(guess, wakeUpTime):
     """Groups performances after how long before wakeup time it was made"""
 
@@ -105,21 +113,20 @@ def save_performance(performances):
             try:
                 combined[index].append(performances["1-3h"][index])
             except IndexError:
-                pass
+                combined[index][-1] = str(combined[index][-1]) + ","
 
             try:
                 combined[index].append(performances["3-6h"][index])
             except IndexError:
-                pass
+                combined[index][-1] = str(combined[index][-1]) + ","
 
             try:
                 combined[index].append(performances[">6h"][index])
             except IndexError:
-                pass
-
+                combined[index][-1] = str(combined[index][-1]) + ","
 
         for each in combined:
-            file_handler.write("".join(str(each)[1:-1]) + "\n")
+            file_handler.write("".join(str(each)[1:-1]).replace("'", "").replace(" ", "") + "\n")
 
 
 # Chunks a night
@@ -208,7 +215,9 @@ if __name__ == "__main__":
     if path.isfile(pathName) and use_loaded_net:
         # get saved net
         net.load_state_dict(torch.load(pathName))
-        net.eval()
+
+        # Use only when not training
+        # net.eval()
 
     # define loss function and optimizer
     criterion = nn.MSELoss()

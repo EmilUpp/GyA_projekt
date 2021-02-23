@@ -20,6 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7d986fb-0f20-47cb-a303-8f667885b930" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/PythonNetTest1/TestDataGenerator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestMedString.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" afterDir="false" />
@@ -127,6 +129,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="TestDataGenerator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GyA_projekt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PythonNetTest1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonNetTest1/TestDataGenerator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="list_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GyA_projekt" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,34 +171,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="reading_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GyA_projekt" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reading_csv.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.PythonNetTest1" />
+        <item itemvalue="Python.TestDataGenerator" />
         <item itemvalue="Python.NightExtractor" />
         <item itemvalue="Python.DataCleanup" />
         <item itemvalue="Python.list_test" />
-        <item itemvalue="Python.reading_csv" />
       </list>
     </recent_temporary>
   </component>
@@ -217,30 +219,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1613742281787" />
-    <state x="430" y="219" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1605280824440">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="430" y="219" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1605280824440" />
     <state x="462" y="119" key="FileChooserDialogImpl" timestamp="1605520469970">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605520469970" />
-    <state width="1308" height="188" key="GridCell.Tab.0.bottom" timestamp="1614030491585">
+    <state width="1308" height="187" key="GridCell.Tab.0.bottom" timestamp="1614083641988">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614030491585" />
-    <state width="1308" height="188" key="GridCell.Tab.0.center" timestamp="1614030491585">
+    <state width="1308" height="187" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614083641988" />
+    <state width="1308" height="187" key="GridCell.Tab.0.center" timestamp="1614083641988">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614030491585" />
-    <state width="1308" height="188" key="GridCell.Tab.0.left" timestamp="1614030491584">
+    <state width="1308" height="187" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614083641988" />
+    <state width="1308" height="187" key="GridCell.Tab.0.left" timestamp="1614083641988">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614030491584" />
-    <state width="1308" height="188" key="GridCell.Tab.0.right" timestamp="1614030491585">
+    <state width="1308" height="187" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614083641988" />
+    <state width="1308" height="187" key="GridCell.Tab.0.right" timestamp="1614083641988">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614030491585" />
+    <state width="1308" height="187" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614083641988" />
     <state width="1308" height="172" key="GridCell.Tab.1.bottom" timestamp="1613661032440">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
