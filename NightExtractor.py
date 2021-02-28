@@ -185,10 +185,10 @@ def test_night_separation():
 
 if __name__ == "__main__":
     # Manual data with bedtime and wakeup
-    excel_data = read_excel_file("PythonNetTest1/Vår sömn - Abbes2.csv")
+    excel_data = read_excel_file("PythonNetTestFolder/Vår sömn - Abbes2.csv")
 
     # Sensor data
-    sleep_data = read_data_from_file("PythonNetTest1/PulseData11OctTo3Dec.csv", "heartRate")
+    sleep_data = read_data_from_file("PythonNetTestFolder/PulseData11OctTo3Dec.csv", "heartRate")
 
     separated_nights = separate_nights(excel_data, sleep_data, True)
 
