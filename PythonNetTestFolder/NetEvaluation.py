@@ -3,10 +3,11 @@ import torch
 from DataCleanup import full_data_formatting
 from NightExtractor import read_excel_file, separate_nights
 from PythonNetTestFolder import PythonNetTest1
-from reading_csv import read_data_from_file
+from reading_csv import read_data_from_file, write_list_to_file, append_list_to_file
+from TestDataGenerator import generate_data
 
 
-def eval_net(net: PythonNetTest1.Net, night_to_eval):
+def eval_net(net, night_to_eval):
     # Set to eval mode
     net.eval()
 
@@ -19,19 +20,20 @@ def eval_net(net: PythonNetTest1.Net, night_to_eval):
 
     # chunk until we are trying to chunk past the end
     j = chunkDifference + firstChunkOffset
-    while j <= totalNightLength:
+    while j <= night_to_eval[0] + chunkDifference * 2:
         # Calculate time from end of chunk to wakeup
-        timeUntilWakeUp = max(night_to_eval[0] - j + chunkDifference, 0)
+        timeUntilWakeUp = max(night_to_eval[0] - j, 0)
         # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into chunks_to_evaluate
         chunks_to_evaluate.append((timeUntilWakeUp,
                                   PythonNetTest1.chunk(night_to_eval[0], night_to_eval[1], j)))
         # Step to next chunking time, use iteration variable to keep track of this
+
         j += chunkDifference
 
     for chunk in chunks_to_evaluate:
         guess = net(torch.Tensor(chunk[1]))
 
-        performance = round(int(chunk[0] - guess) / 1000 / 60, 2)
+        performance = round(int(chunk[0] - guess) / 1000 / 60)
 
         guesses.append(performance)
 
@@ -42,7 +44,7 @@ def eval_net(net: PythonNetTest1.Net, night_to_eval):
 
 
 if __name__ == "__main__":
-    night_index_to_eval = 14
+    night_index_to_eval = 20
 
     # Manual data with bedtime and wakeup
     excel_data = read_excel_file("Vår sömn - Abbes2.csv")
@@ -59,7 +61,10 @@ if __name__ == "__main__":
     net = PythonNetTest1.Net()
     net.load_state_dict(torch.load("testNet.pth"))
 
-    net_guesses = eval_net(net, formatted_data_nights[night_index_to_eval])
+    # net_guesses = eval_net(net, formatted_data_nights[night_index_to_eval])
+    test_data = generate_data(5, 2000, 80, 20000)[0]
 
-    for guess in net_guesses:
-        print(guess)
+    net_guesses = eval_net(net, formatted_data_nights[18])
+
+    write_list_to_file(net_guesses, "reference_night.txt")
+    append_list_to_file(formatted_data_nights[18][1], "reference_night.txt")

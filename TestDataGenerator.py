@@ -10,7 +10,7 @@ def generate_one_night(length, end_value, msPerIndex):
     increment = end_value / test_wake_up_time_index
 
     for i in range(test_wake_up_time_index):
-        night_data[i] = round(increment * i * (1 + (0.05 - random.random() * 0.1)))
+        night_data[i] = round(increment * i)
 
     return [test_wake_up_time_index * msPerIndex, night_data]
 

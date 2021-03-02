@@ -123,6 +123,28 @@ def write_to_file(data_tuple_to_write, filepath):
             csv_writer.writerows([each])
 
 
+def write_list_to_file(list_to_write, file_path):
+    with open(file_path, "w") as file_handler:
+        for element in list_to_write:
+            file_handler.write(str(element)+"\n")
+
+
+def append_list_to_file(list_to_append, file_path):
+    with open(file_path, "r") as file_handler:
+        new_list = list()
+        read_lines = file_handler.readlines()
+
+        for index, element in enumerate(list_to_append):
+            try:
+                new_list.append(str(read_lines[index].strip()) + "," + str(element) + "\n")
+            except IndexError:
+                new_list.append("," + str(element) + "\n")
+
+    with open(file_path, "w") as file_handler:
+        for line in new_list:
+            file_handler.write(line)
+
+
 if __name__ == "__main__":
     data = read_data_from_file("test.csv", "heartRate")
 

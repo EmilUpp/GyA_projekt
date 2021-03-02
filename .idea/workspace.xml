@@ -20,22 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7d986fb-0f20-47cb-a303-8f667885b930" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Gammal data/GenereradData200Batch.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonNetTestFolder/NetEvaluation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PythonNetTestFolder/performanceComparison.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestDataGenerator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PythonNetTestFolder/reference_night.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NightExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/NightExtractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/CompleteDataSet.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/CompleteDataSet.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/PulseData11OctTo3Dec.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/PulseData11OctTo3Dec.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/PythonNetTest1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.pyproj" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/PythonNetTest1.pyproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/PythonNetTest1.sln" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/PythonNetTest1.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/TestDataGenerator.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/Vår sömn - Abbes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/Vår sömn - Abbes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/Vår sömn - Abbes2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/Vår sömn - Abbes2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/performanceComparison.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonNetTest1/testNet.pth" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/testNet.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataCleanup.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataCleanup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonNetTestFolder/NetEvaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/NetEvaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonNetTestFolder/PythonNetTest1.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/PythonNetTest1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonNetTestFolder/Vår sömn - Abbes2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/Vår sömn - Abbes2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonNetTestFolder/performanceComparison.csv" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/performanceComparison.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonNetTestFolder/testNet.pth" beforeDir="false" afterPath="$PROJECT_DIR$/PythonNetTestFolder/testNet.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestDataGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestDataGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reading_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/reading_csv.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +70,7 @@
       <recent name="C:\Users\emisit1\Documents\GitHub\GyA_projekt\PythonNetTest1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.NetEvaluation">
+  <component name="RunManager" selected="Python.PythonNetTest1 (1)">
     <configuration name="NetEvaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GyA_projekt" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -98,7 +92,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="NightExtractor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="PythonNetTest1 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GyA_projekt" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -106,11 +100,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PythonNetTestFolder" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NightExtractor.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonNetTestFolder/PythonNetTest1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -184,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.PythonNetTest1 (1)" />
         <item itemvalue="Python.NetEvaluation" />
         <item itemvalue="Python.PythonNetTest1" />
         <item itemvalue="Python.TestDataGenerator (1)" />
         <item itemvalue="Python.TestDataGenerator" />
-        <item itemvalue="Python.NightExtractor" />
       </list>
     </recent_temporary>
   </component>
@@ -226,54 +220,58 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="449" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1611919603661" />
-    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613742281787">
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1614714692505">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1613742281787" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1614714692505" />
     <state x="462" y="119" key="FileChooserDialogImpl" timestamp="1605520469970">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605520469970" />
-    <state width="1308" height="164" key="GridCell.Tab.0.bottom" timestamp="1614535360201">
+    <state width="1345" height="195" key="GridCell.Tab.0.bottom" timestamp="1614714728751">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="164" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614535360201" />
-    <state width="1308" height="164" key="GridCell.Tab.0.center" timestamp="1614535360201">
+    <state width="1345" height="195" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614714728751" />
+    <state width="1345" height="195" key="GridCell.Tab.0.center" timestamp="1614714728751">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="164" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614535360201" />
-    <state width="1308" height="164" key="GridCell.Tab.0.left" timestamp="1614535360201">
+    <state width="1345" height="195" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614714728751" />
+    <state width="1345" height="195" key="GridCell.Tab.0.left" timestamp="1614714728751">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="164" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614535360201" />
-    <state width="1308" height="164" key="GridCell.Tab.0.right" timestamp="1614535360201">
+    <state width="1345" height="195" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614714728751" />
+    <state width="1345" height="195" key="GridCell.Tab.0.right" timestamp="1614714728751">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="164" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614535360201" />
-    <state width="1308" height="143" key="GridCell.Tab.1.bottom" timestamp="1614535276646">
+    <state width="1345" height="195" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614714728751" />
+    <state width="1345" height="106" key="GridCell.Tab.1.bottom" timestamp="1614713820065">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="143" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614535276646" />
-    <state width="1308" height="143" key="GridCell.Tab.1.center" timestamp="1614535276646">
+    <state width="1345" height="106" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614713820065" />
+    <state width="1345" height="106" key="GridCell.Tab.1.center" timestamp="1614713820064">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="143" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1614535276646" />
-    <state width="1308" height="143" key="GridCell.Tab.1.left" timestamp="1614535276646">
+    <state width="1345" height="106" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1614713820064" />
+    <state width="1345" height="106" key="GridCell.Tab.1.left" timestamp="1614713820064">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="143" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1614535276646" />
-    <state width="1308" height="143" key="GridCell.Tab.1.right" timestamp="1614535276646">
+    <state width="1345" height="106" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1614713820064" />
+    <state width="1345" height="106" key="GridCell.Tab.1.right" timestamp="1614713820064">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1308" height="143" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1614535276646" />
+    <state width="1345" height="106" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1614713820064" />
     <state x="184" y="9" key="SettingsEditor" timestamp="1605521820512">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1605521820512" />
-    <state width="673" height="344" key="XDebugger.FullValuePopup" timestamp="1612004771828">
+    <state width="673" height="344" key="XDebugger.FullValuePopup" timestamp="1614713727779">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="673" height="344" key="XDebugger.FullValuePopup/0.0.1366.728@0.0.1366.728" timestamp="1612004771828" />
+    <state width="673" height="344" key="XDebugger.FullValuePopup/0.0.1366.728@0.0.1366.728" timestamp="1614713727779" />
+    <state x="266" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1614538328404">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="266" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1614538328404" />
     <state x="245" y="93" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1605536187682">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

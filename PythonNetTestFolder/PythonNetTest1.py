@@ -1,3 +1,5 @@
+import datetime
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -8,9 +10,11 @@ import math
 import random
 
 from NightExtractor import read_excel_file, separate_nights
-from reading_csv import read_data_from_file
+from reading_csv import read_data_from_file, write_list_to_file, append_list_to_file
 from Decorators import timing
 from DataCleanup import full_data_formatting
+
+from PythonNetTestFolder import NetEvaluation
 
 from TestDataGenerator import generate_data
 
@@ -24,9 +28,9 @@ loss_list_mean = []
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(2000, 800)
-        self.fc2 = nn.Linear(800, 800)
-        self.fc3 = nn.Linear(800, 50)
+        self.fc1 = nn.Linear(2000, 400)
+        self.fc2 = nn.Linear(400, 400)
+        self.fc3 = nn.Linear(400, 50)
         # self.fc4 = nn.Linear(800, 50)
         self.fc4 = nn.Linear(50, 1)
 
@@ -125,6 +129,8 @@ def save_performance(performances):
                 combined[index].append(performances[">6h"][index])
             except IndexError:
                 combined[index][-1] = str(combined[index][-1]) + ","
+            except KeyError:
+                pass
 
         for each in combined:
             file_handler.write("".join(str(each)[1:-1]).replace("'", "").replace(" ", "") + "\n")
@@ -153,6 +159,7 @@ def chunk(wakeUpTime, nightData, chunkTime):
         chunkedData[i] = 0
         i += 1
 
+    #print(chunkedData)
     return chunkedData
 
 
@@ -182,16 +189,20 @@ def train_net(net, criterion, optimizer, allNightsTensor, epochs, check_points=F
     # For every night
     i = 0
     while i < len(allNightsTensor):
-        # chunk until we are trying to chunk past the end
+        # Offset is no maximize performance in the end and not in the beginning
         j = chunkDifference + firstChunkOffset
-        while j <= totalNightLength:
-            # Calculate time from end of chunk to wakeup
-            timeUntilWakeUp = max(allNightsTensor[i][0] - j + chunkDifference, 0)
+
+        # chunk until wakeup and then twice again
+        while j <= allNightsTensor[i][0] + chunkDifference * 2:
+            # Calculate time from end of chunk to wakeup, never negative but 0 instead
+            timeUntilWakeUp = max(allNightsTensor[i][0] - j, 0)
+
             # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into allTrainingChunks
             allTrainingChunks.append((timeUntilWakeUp,
                                       chunk(allNightsTensor[i][0], allNightsTensor[i][1], j)))
             # Step to next chunking time, use iteration variable to keep track of this
             j += chunkDifference
+
         i += 1
 
     for index, epoch in enumerate(range(epochs)):
@@ -205,10 +216,11 @@ def train_net(net, criterion, optimizer, allNightsTensor, epochs, check_points=F
                                 torch.Tensor([allTrainingChunks[i][0]]))
             i += 1
 
-            if i % 1000 == 0:
+            if i % (min(round(len(allTrainingChunks)/3), 1000)) == 0:
                 print("%d out of %d iterations completed" % (i, len(allTrainingChunks)))
 
         print("Epoch %d out of %d completed" % (index + 1, epochs))
+        print("Epoch mean loss: " + str(round(sum(loss_list[:round(-len(loss_list)/epochs)])/round(len(loss_list)/epochs))))
         print()
 
     print("Training complete")
@@ -249,8 +261,13 @@ if __name__ == "__main__":
     for night in separated_nights:
         formatted_data_nights.append(full_data_formatting(night, 20000, 2000))
 
+    test_data_set = generate_data(30, 2000, 80, 20000)
 
-    # test_data_set = generate_data(30, 2000, 80, 20000)
+    # formatted_data_nights = formatted_data_nights[:4]
+
+    reference_night_index = random.randint(0, len(formatted_data_nights) - 1)
+
+    reference_night = formatted_data_nights.pop(reference_night_index)
 
     # train the net
     train_net(net, criterion, optimizer, formatted_data_nights, 3)
@@ -260,5 +277,12 @@ if __name__ == "__main__":
 
     save_performance(performanceComparison)
 
-    for loss in loss_list_mean:
-        print(loss)
+    net_guesses = NetEvaluation.eval_net(net, reference_night)
+
+    print()
+    print("Reference night: " + str(reference_night_index))
+    print("Night length: " + str(reference_night[0] / (1000 * 60 * 60)))
+    print()
+
+    write_list_to_file(net_guesses, "reference_night.txt")
+    append_list_to_file(reference_night[1], "reference_night.txt")
