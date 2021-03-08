@@ -2,8 +2,6 @@
 Functions for cleaning up and simplifying the data for processing
 """
 
-from Decorators import timing
-
 
 def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     """

@@ -5,7 +5,7 @@ import random
 def generate_one_night(length, end_value, msPerIndex):
     night_data = [0 for _ in range(length)]
 
-    test_wake_up_time_index = math.floor(length * (random.random() * (0.9-0.7) + 0.7))
+    test_wake_up_time_index = math.floor(length * (random.random() * (0.9 - 0.7) + 0.7))
 
     increment = end_value / test_wake_up_time_index
 
@@ -14,6 +14,7 @@ def generate_one_night(length, end_value, msPerIndex):
 
     return [test_wake_up_time_index * msPerIndex, night_data]
 
+
 def generate_data(batch_size, length, end_value, msPerIndex):
     data_set = []
 
@@ -21,6 +22,7 @@ def generate_data(batch_size, length, end_value, msPerIndex):
         data_set.append(generate_one_night(length, end_value, msPerIndex))
 
     return data_set
+
 
 if __name__ == "__main__":
     test_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -1,22 +1,18 @@
-import datetime
+import math
+import os.path as path
+import random
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-import os.path as path
-import math
-import random
-
-from NightExtractor import read_excel_file, separate_nights
-from reading_csv import read_data_from_file, write_list_to_file, append_list_to_file
-from Decorators import timing
 from DataCleanup import full_data_formatting
-
+from Decorators import timing
+from NightExtractor import read_excel_file, separate_nights
 from PythonNetTestFolder import NetEvaluation
-
 from TestDataGenerator import generate_data
+from reading_csv import read_data_from_file, write_list_to_file, append_list_to_file
 
 # Saves the performance into groups depending on time left
 performanceComparison = dict()
@@ -30,9 +26,9 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.fc1 = nn.Linear(2000, 400)
         self.fc2 = nn.Linear(400, 400)
-        self.fc3 = nn.Linear(400, 50)
+        self.fc3 = nn.Linear(400, 25)
         # self.fc4 = nn.Linear(800, 50)
-        self.fc4 = nn.Linear(50, 1)
+        self.fc4 = nn.Linear(25, 1)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
@@ -57,7 +53,7 @@ def train_net_one_night(net, criterion, optimizer, oneNightTensor, wakeUpTime):
 
     loss_list.append(loss.item() / math.pow(1000 * 60, 2))
 
-    if (len(loss_list) % 100 == 0):
+    if len(loss_list) % 100 == 0:
         loss_list_mean.append(round(sum(loss_list[-100:])/100))
 
     group_performances(guess, wakeUpTime)
@@ -156,7 +152,7 @@ def chunk(wakeUpTime, nightData, chunkTime):
     # Marker?
     # chunkedData[i-1] = -1
     while i < len(chunkedData):
-        chunkedData[i] = 0
+        chunkedData[i] = -1
         i += 1
 
     #print(chunkedData)
@@ -220,7 +216,8 @@ def train_net(net, criterion, optimizer, allNightsTensor, epochs, check_points=F
                 print("%d out of %d iterations completed" % (i, len(allTrainingChunks)))
 
         print("Epoch %d out of %d completed" % (index + 1, epochs))
-        print("Epoch mean loss: " + str(round(sum(loss_list[:round(-len(loss_list)/epochs)])/round(len(loss_list)/epochs))))
+        print("Epoch mean loss: " + str(round(sum(loss_list[round(-len(allTrainingChunks)):])
+                                              /round(len(allTrainingChunks)))))
         print()
 
     print("Training complete")
@@ -265,12 +262,14 @@ if __name__ == "__main__":
 
     # formatted_data_nights = formatted_data_nights[:4]
 
-    reference_night_index = random.randint(0, len(formatted_data_nights) - 1)
+    # reference_night_index = random.randint(0, len(formatted_data_nights) - 1)
+    reference_night_index = 0
 
     reference_night = formatted_data_nights.pop(reference_night_index)
+    # del(formatted_data_nights[:2])
 
     # train the net
-    train_net(net, criterion, optimizer, formatted_data_nights, 3)
+    train_net(net, criterion, optimizer, formatted_data_nights, 10)
 
     # save the net
     torch.save(net.state_dict(), pathName)

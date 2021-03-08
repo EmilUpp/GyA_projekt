@@ -4,8 +4,8 @@ A file for extracting and separating different nights data from one large csv fi
 
 import csv
 import datetime
+
 from reading_csv import read_data_from_file
-import DataCleanup
 
 
 def format_date_time(date_string, time_string):
@@ -179,7 +179,8 @@ def test_night_separation():
         print(datetime.datetime.fromtimestamp(night[1][0][0] / 1000).ctime())
         print(datetime.datetime.fromtimestamp(night[1][-1][0] / 1000).ctime())
         print(len(night[1]))
-        print("Interval mellan punkter: " + str(round((night[1][-1][0] / 1000 - night[1][0][0] / 1000) / len(night[1]), 2)) + " sek")
+        print("Interval mellan punkter: " + str(round((night[1][-1][0] / 1000 - night[1][0][0] / 1000)
+                                                      / len(night[1]), 2)) + " sek")
         print()
 
 

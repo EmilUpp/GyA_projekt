@@ -25,13 +25,15 @@ def eval_net(net, night_to_eval):
         timeUntilWakeUp = max(night_to_eval[0] - j, 0)
         # Chunk and put it as a tensor with [wakeUpTime, [newlychunkedDataTensor]] into chunks_to_evaluate
         chunks_to_evaluate.append((timeUntilWakeUp,
-                                  PythonNetTest1.chunk(night_to_eval[0], night_to_eval[1], j)))
+                                   PythonNetTest1.chunk(night_to_eval[0], night_to_eval[1], j)))
         # Step to next chunking time, use iteration variable to keep track of this
 
         j += chunkDifference
 
     for chunk in chunks_to_evaluate:
         guess = net(torch.Tensor(chunk[1]))
+        # print(guess.item())
+        print(chunk[0])
 
         performance = round(int(chunk[0] - guess) / 1000 / 60)
 
@@ -40,7 +42,6 @@ def eval_net(net, night_to_eval):
     net.train()
 
     return guesses
-
 
 
 if __name__ == "__main__":
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     # net_guesses = eval_net(net, formatted_data_nights[night_index_to_eval])
     test_data = generate_data(5, 2000, 80, 20000)[0]
 
-    net_guesses = eval_net(net, formatted_data_nights[18])
+    net_guesses = eval_net(net, formatted_data_nights[0])
 
     write_list_to_file(net_guesses, "reference_night.txt")
-    append_list_to_file(formatted_data_nights[18][1], "reference_night.txt")
+    append_list_to_file(formatted_data_nights[0][1], "reference_night.txt")
