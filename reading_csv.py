@@ -123,6 +123,16 @@ def write_to_file(data_tuple_to_write, filepath):
             csv_writer.writerows([each])
 
 
+def write_2d_list_to_file(list_to_write, file_path):
+    with open(file_path, "w") as file_handler:
+        if type(list_to_write[0]) != list:
+
+            file_handler.write("\n".join([str(x) for x in list_to_write]))
+        else:
+            for row in list_to_write:
+                file_handler.write(",".join([str(x) for x in row]) + "\n")
+
+
 def write_list_to_file(list_to_write, file_path):
     with open(file_path, "w") as file_handler:
         for element in list_to_write:
@@ -146,6 +156,7 @@ def append_list_to_file(list_to_append, file_path):
 
 
 if __name__ == "__main__":
-    data = read_data_from_file("test.csv", "heartRate")
+    test_2_d = [[1, 2, 3, 4, 5, 6], [4, 5, 1, 123, 123], [123, 123, 123, 123]]
+    test_list = [1, 2, 3, 4, 5]
 
-    write_to_file(data, "clean_file.csv")
+    write_2d_list_to_file(test_list, "test_write.txt")

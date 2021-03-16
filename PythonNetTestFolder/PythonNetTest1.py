@@ -12,13 +12,14 @@ from Decorators import timing
 from NightExtractor import read_excel_file, separate_nights
 from PythonNetTestFolder import NetEvaluation
 from TestDataGenerator import generate_data
-from reading_csv import read_data_from_file, write_list_to_file, append_list_to_file
+from reading_csv import read_data_from_file, write_list_to_file, append_list_to_file, write_2d_list_to_file
 
 # Saves the performance into groups depending on time left
 performanceComparison = dict()
 one_night_performance = list()
 loss_list = []
 loss_list_mean = []
+eval_samples = list()
 
 
 class Net(nn.Module):
@@ -201,6 +202,11 @@ def train_net(net, criterion, optimizer, allNightsTensor, epochs, check_points=F
 
         i += 1
 
+    sample_size = round(len(allTrainingChunks) * 0.15)
+    sample_chunks, allTrainingChunks = NetEvaluation.sample_pop(allTrainingChunks, sample_size)
+    eval_samples.extend(sample_chunks)
+    print(len(allTrainingChunks), len(sample_chunks), sample_size)
+
     for index, epoch in enumerate(range(epochs)):
         # Shuffle all chunks
         random.shuffle(allTrainingChunks)
@@ -263,10 +269,9 @@ if __name__ == "__main__":
     # formatted_data_nights = formatted_data_nights[:4]
 
     # reference_night_index = random.randint(0, len(formatted_data_nights) - 1)
-    reference_night_index = 0
+    # reference_night_index = 0
 
-    reference_night = formatted_data_nights.pop(reference_night_index)
-    # del(formatted_data_nights[:2])
+    # reference_night = formatted_data_nights.pop(reference_night_index)
 
     # train the net
     train_net(net, criterion, optimizer, formatted_data_nights, 10)
@@ -276,8 +281,12 @@ if __name__ == "__main__":
 
     save_performance(performanceComparison)
 
-    net_guesses = NetEvaluation.eval_net(net, reference_night)
+    # net_guesses = NetEvaluation.eval_net_one_night(net, reference_night)
+    net_sample_guesses = NetEvaluation.eval_net_on_samples(net, eval_samples)
 
+    write_2d_list_to_file(net_sample_guesses, "performance_against_time.txt")
+
+    """
     print()
     print("Reference night: " + str(reference_night_index))
     print("Night length: " + str(reference_night[0] / (1000 * 60 * 60)))
@@ -285,3 +294,4 @@ if __name__ == "__main__":
 
     write_list_to_file(net_guesses, "reference_night.txt")
     append_list_to_file(reference_night[1], "reference_night.txt")
+    """

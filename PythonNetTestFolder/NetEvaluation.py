@@ -1,3 +1,5 @@
+import random
+
 import torch
 
 from DataCleanup import full_data_formatting
@@ -7,7 +9,13 @@ from reading_csv import read_data_from_file, write_list_to_file, append_list_to_
 from TestDataGenerator import generate_data
 
 
-def eval_net(net, night_to_eval):
+def eval_net_one_night(net, night_to_eval):
+    """
+
+    :param net: Net, the neural net model used
+    :param night_to_eval: [sleep_duration, [pulses]], data for one night
+    :return: list(), list of guesses
+    """
     # Set to eval mode
     net.eval()
 
@@ -44,6 +52,52 @@ def eval_net(net, night_to_eval):
     return guesses
 
 
+def eval_net_on_samples(net, list_of_samples):
+    """
+    Evaluates the net on random selected chunks and pairs them by sleep duration left
+
+    :param net: Net, the neural net model used
+    :param list_of_samples: list(), list of chunks to check
+    :return: [[performance1, timeleft1], [performance2, timeleft2]]
+    """
+
+    net.eval()
+
+    sample_guesses = list()
+
+    for sample in list_of_samples:
+        guess = net(torch.Tensor(sample[1]))
+
+        performance = abs(round(int(sample[0] - guess) / 1000 / 60))
+
+        sample_guesses.append([sample[0], performance])
+
+    net.train()
+
+    return sample_guesses
+
+
+def sample_pop(list_to_sample: list, sample_amount):
+    """
+    Randomly selects and pops elements from a list
+
+    :param list_to_sample: list, list to pick samples from
+    :param sample_amount: int, how many samples
+    :return:
+    """
+
+    try:
+        samples = random.sample(list_to_sample, sample_amount)
+    except ValueError:
+        # If one tries and illegal sample size (to big or negative) the samples list is empty
+        return list_to_sample, list()
+
+    for sample in samples:
+        list_to_sample.remove(sample)
+
+    return samples, list_to_sample
+
+
 if __name__ == "__main__":
     night_index_to_eval = 20
 
@@ -65,7 +119,7 @@ if __name__ == "__main__":
     # net_guesses = eval_net(net, formatted_data_nights[night_index_to_eval])
     test_data = generate_data(5, 2000, 80, 20000)[0]
 
-    net_guesses = eval_net(net, formatted_data_nights[0])
+    net_guesses = eval_net_one_night(net, formatted_data_nights[0])
 
     write_list_to_file(net_guesses, "reference_night.txt")
     append_list_to_file(formatted_data_nights[0][1], "reference_night.txt")
