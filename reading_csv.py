@@ -123,7 +123,40 @@ def write_to_file(data_tuple_to_write, filepath):
             csv_writer.writerows([each])
 
 
-if __name__ == "__main__":
-    data = read_data_from_file("test.csv", "heartRate")
+def write_2d_list_to_file(list_to_write, file_path):
+    with open(file_path, "w") as file_handler:
+        if type(list_to_write[0]) != list:
 
-    write_to_file(data, "clean_file.csv")
+            file_handler.write("\n".join([str(x) for x in list_to_write]))
+        else:
+            for row in list_to_write:
+                file_handler.write(",".join([str(x) for x in row]) + "\n")
+
+
+def write_list_to_file(list_to_write, file_path):
+    with open(file_path, "w") as file_handler:
+        for element in list_to_write:
+            file_handler.write(str(element)+"\n")
+
+
+def append_list_to_file(list_to_append, file_path):
+    with open(file_path, "r") as file_handler:
+        new_list = list()
+        read_lines = file_handler.readlines()
+
+        for index, element in enumerate(list_to_append):
+            try:
+                new_list.append(str(read_lines[index].strip()) + "," + str(element) + "\n")
+            except IndexError:
+                new_list.append("," + str(element) + "\n")
+
+    with open(file_path, "w") as file_handler:
+        for line in new_list:
+            file_handler.write(line)
+
+
+if __name__ == "__main__":
+    test_2_d = [[1, 2, 3, 4, 5, 6], [4, 5, 1, 123, 123], [123, 123, 123, 123]]
+    test_list = [1, 2, 3, 4, 5]
+
+    write_2d_list_to_file(test_list, "test_write.txt")

@@ -2,8 +2,6 @@
 Functions for cleaning up and simplifying the data for processing
 """
 
-from Decorators import timing
-
 
 def calculate_mean(data_chunk, start_time, time_interval, debug=False):
     """
@@ -195,7 +193,6 @@ def full_data_formatting(one_night_data_set, time_interval, target_length):
     sleep_length, pulse_data = one_night_data_set
 
     mean_data = calculate_rolling_mean(pulse_data, time_interval)
-
     mean_trailed_data = add_trailing_zeros(mean_data, target_length)
 
     return [sleep_length, mean_trailed_data]

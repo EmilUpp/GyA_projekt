@@ -4,8 +4,8 @@ A file for extracting and separating different nights data from one large csv fi
 
 import csv
 import datetime
+
 from reading_csv import read_data_from_file
-import DataCleanup
 
 
 def format_date_time(date_string, time_string):
@@ -173,16 +173,33 @@ def align_data(separated_data):
             file_handler.write("".join(str(each)[1:-1]) + ",\n")
 
 
+def test_night_separation():
+    for index, night in enumerate(separated_nights):
+        print("Index: " + str(index))
+        print(datetime.datetime.fromtimestamp(night[1][0][0] / 1000).ctime())
+        print(datetime.datetime.fromtimestamp(night[1][-1][0] / 1000).ctime())
+        print(len(night[1]))
+        print("Interval mellan punkter: " + str(round((night[1][-1][0] / 1000 - night[1][0][0] / 1000)
+                                                      / len(night[1]), 2)) + " sek")
+        print()
+
+
 if __name__ == "__main__":
     # Manual data with bedtime and wakeup
-    excel_data = read_excel_file("PythonNetTest1/Vår sömn - Abbes.csv")
+    excel_data = read_excel_file("PythonNetTestFolder/Vår sömn - Abbes2.csv")
 
     # Sensor data
-    sleep_data = read_data_from_file("PythonNetTest1/CompleteDataSet.csv", "heartRate")
+    sleep_data = read_data_from_file("PythonNetTestFolder/PulseData11OctTo3Dec.csv", "heartRate")
 
-    separated_nights = separate_nights(excel_data, sleep_data)
+    separated_nights = separate_nights(excel_data, sleep_data, True)
 
-    print(DataCleanup.full_data_formatting(separated_nights[7], 20000, 2000))
+    print("Första datapunkten: " + str(datetime.datetime.fromtimestamp(separated_nights[0][1][0][0]/1000).ctime()))
+    print("Sista datapunkten: " + str(datetime.datetime.fromtimestamp(separated_nights[-1][1][-1][0]/1000).ctime()))
+    print("Antal datapunkter: " + str(len(sleep_data)))
+    print("Antal datapunkter under nätter: " + str(sum([len(night[1]) for night in separated_nights])))
+    print("Antal nätter: " + str(len(separated_nights)))
+
+    test_night_separation()
 
     """
     meaned_data = DataCleanup.calculate_rolling_mean(separated_nights[1][1], 20000)
